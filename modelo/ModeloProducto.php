@@ -34,6 +34,16 @@
 			return $productos;
 		}
 		
+		public function delete() {
+			$id = $this->getId();
+			
+			$sql = "CALL deleteProducto($id)";
+			$query = $this->conexion->query( $sql );
+			
+			if ( $query ) return true;
+			else return false;
+		}
+		
 		private function showProperties() {
 			unset($this->conexion);
 			return get_object_vars( $this );

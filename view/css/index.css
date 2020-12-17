@@ -29,7 +29,7 @@ nav, #shoppingCart {
 /* NAVBAR STYLES */
 nav {
     position: relative;
-    padding: 1rem 0;
+    padding-top: 1rem;
     margin-bottom: 1rem;
 }
 
@@ -59,16 +59,37 @@ nav {
     font-weight: bold;
     padding: 1rem;
     border-radius: 0.5rem;
+    margin-bottom: 1rem;
 }
 
-/* PRODUCTOS */
+/* BUSQUEDA STYLES */
+#busqueda {
+    display: flex;
+    justify-content: center;
+    background-color: #b02525;
+    padding: 1rem 0;
+}
+
+#busqueda label {
+    width: 80%;
+}
+
+#busqueda input {
+    width: 90%;
+    border: none;
+    border-radius: 0.25rem;
+    box-shadow: 2px 2px 6px black;
+    padding: 0.5rem;
+}
+
+/* PRODUCTOS STYLES */
 #productos {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
 }
 
-/* CARDS STYLE */
+/* CARDS STYLES */
 .card {
     width: 250px;
     background-color: #343232;
@@ -114,6 +135,40 @@ nav {
 
 .actions .img-button {
     padding: 0.3rem;
+}
+
+/* INSERT STYLES */
+#insert {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#insert > form {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: center;
+    background-color: #2dbf2d;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    color: #fff;
+}
+
+.form-group{
+    width: 100%;
+    padding: 0.25rem 0;
+}
+
+.form-group label {
+    display: inline-block;
+    width: 8rem;
+}
+
+#insert .card-img {
+    margin-top: 1rem;
+    width: 350px;
+    height: 250px;
 }
 
 /* SHOPPING CART STYLES */

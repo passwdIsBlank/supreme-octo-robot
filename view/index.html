@@ -11,70 +11,99 @@
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body ng-app="app" ng-controller="tienda">
-    <nav>
-        <img class="nav-brand" src="media/images/main/logo.webp" alt="" height="100px" width="180px">
-        <h1 class="nav-title">Tienda de Chocolates</h1>
-        <div class="nav-links">
-            <a href="">Productos</a>
-            <a href="">Nuevo Producto</a>
-            <a href="">Buscar</a>
-        </div>
-    </nav>
+<nav>
+    <img class="nav-brand" src="media/images/main/logo.webp" alt="" height="100px" width="180px">
+    <h1 class="nav-title">Tienda de Chocolates</h1>
+    <div class="nav-links">
+        <a href="" ng-click="action = 0">Productos</a>
+        <a href="" ng-click="action = 1">Nuevo Producto</a>
+        <a href="" ng-click="action = 2">Buscar</a>
+    </div>
+    <div id="busqueda" ng-show="action == 2">
+        <label for="search">Busqueda: <input id="search" ng-model="busqueda" type="text"></label>
+    </div>
+</nav>
 
-    <div id="productos" ng-hide="action !== 0">
-        <div class="card" ng-repeat="producto in productos">
-            <h1 class="card-type">{{producto.tipo}}</h1>
-            <div class="card-img" style="background-image: url({{producto.imagen}})">
-                <!-- IMG ON CSS -->
-            </div>
-            <h2 class="card-name">{{producto.nombre}}</h2>
-            <h2>{{producto.unidades}} disponibles</h2>
-            <h2 class="card-price">{{producto.precio}}€</h2>
-            <div class="card-shop">
-                <img class="img-button" src="media/images/index/add.png" alt="" height="30px" width="30px" ng-click="addToCart($index)">
-            </div>
-            <div class="actions">
-                <img class="img-button" src="media/images/index/delete.png" alt="" height="30px" width="30px">
-                <img class="img-button" src="media/images/index/edit.png" alt="" height="30px" width="30px">
-            </div>
+<div id="productos" ng-show="action == 2 || action == 0">
+    <div class="card" ng-repeat="producto in productos | filter : busqueda">
+        <h1 class="card-type">{{producto.tipo}}</h1>
+        <div class="card-img" style="background-image: url({{producto.imagen}})">
+            <!-- IMG ON CSS -->
+        </div>
+        <h2 class="card-name">{{producto.nombre}}</h2>
+        <h2>{{producto.unidades}} disponibles</h2>
+        <h2 class="card-price">{{producto.precio}}€</h2>
+        <div class="card-shop">
+            <img class="img-button" src="media/images/index/add.png" alt="" height="30px" width="30px"
+                 ng-click="addToCart($index)">
+        </div>
+        <div class="actions">
+            <img class="img-button" src="media/images/index/delete.png" alt="" height="30px" width="30px" ng-click="delete($index)">
+            <img class="img-button" src="media/images/index/edit.png" alt="" height="30px" width="30px">
         </div>
     </div>
+</div>
 
-    <div id="shoppingCart">
-        <table>
-            <tbody>
-            <tr>
-                <th>Nombre</th>
-                <th>Imagen</th>
-                <th>Cantidad</th>
-                <th>Precio</th>
-                <th></th>
-            </tr>
-            <tr ng-repeat="producto in carrito">
-                <td>{{producto.nombre}}</td>
-                <td class="card-img" style="background-image: url({{producto.imagen}})">
+<div id="insert" ng-show="action == 1">
+    <form>
+        <div class="form-group">
+            <label for="nombre">Nombre: </label><input id="nombre" type="text">
+        </div>
+        <div class="form-group">
+            <label for="tipo">Tipo: </label><input id="tipo" type="text">
+        </div>
+        <div class="form-group">
+            <label for="unidades">Unidades: </label><input id="unidades" type="text">
+        </div>
+        <div class="form-group">
+            <label for="precio">Precio Unitario: </label><input id="precio" type="text">
+        </div>
+        <div class="form-group">
+            <label for="imagen">Imagen: </label><input id="imagen" type="file" onchange="angular.element(this).scope().getFile(this)">
+        </div>
+        <img class="card-img" src="{{imagePath}}"/>
+    </form>
+</div>
 
-                </td>
-                <td>
-                    <img class="img-button" src="media/images/main/back.png" alt="" height="15px" width="15px" ng-hide="producto.cantidad == 0" ng-click="changeQuantity('substract', $index)">
-                    <span>{{producto.cantidad}}</span>
-                    <img class="img-button" src="media/images/main/next.png" alt="" height="15px" width="15px" ng-hide="producto.unidades == producto.cantidad" ng-click="changeQuantity('sum', $index)">
-                </td>
-                <td>
-                    <input class="shopping-product-price" type="text" value="0" ng-value="(producto.precio * producto.cantidad) + currency" readonly>
-                </td>
-                <td>
-                    <img class="remove img-button" src="media/images/main/remove-shopping-cart.png" alt="" height="30px" width="30px" ng-click="removeFromCart($index)">
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <div id="shopping-final-price" ng-model="precioFinal">Precio Final: {{precioFinal}}€</div>
-    </div>
+<div id="shoppingCart">
+    <table>
+        <tbody>
+        <tr>
+            <th>Nombre</th>
+            <th>Imagen</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th></th>
+        </tr>
+        <tr ng-repeat="producto in carrito">
+            <td>{{producto.nombre}}</td>
+            <td class="card-img" style="background-image: url({{producto.imagen}})">
+
+            </td>
+            <td>
+                <img class="img-button" src="media/images/main/back.png" alt="" height="15px" width="15px"
+                     ng-hide="producto.cantidad == 0" ng-click="changeQuantity('substract', $index)">
+                <span>{{producto.cantidad}}</span>
+                <img class="img-button" src="media/images/main/next.png" alt="" height="15px" width="15px"
+                     ng-hide="producto.unidades == producto.cantidad" ng-click="changeQuantity('sum', $index)">
+            </td>
+            <td>
+                <input class="shopping-product-price" type="text" value="0"
+                       ng-value="(producto.precio * producto.cantidad) + currency" readonly>
+            </td>
+            <td>
+                <img class="remove img-button" src="media/images/main/remove-shopping-cart.png" alt="" height="30px"
+                     width="30px" ng-click="removeFromCart($index)">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div id="shopping-final-price" ng-model="precioFinal">Precio Final: {{precioFinal}}€</div>
+</div>
 
 
-    <!-- JS -->
-    <script src="js/angular.min.js"></script>
-    <script src="js/script.js"></script>
+<!-- JS -->
+<script src="js/angular.min.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>
