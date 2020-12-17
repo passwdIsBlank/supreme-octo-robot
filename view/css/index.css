@@ -8,7 +8,7 @@ body {
 }
 
 /** SHARED BETWEEN DIFFERENT SECTIONS */
-nav, #shoppingCart, .card {
+nav, #shoppingCart {
     background-color: #e33535;
     color: #fff;
 }
@@ -63,14 +63,19 @@ nav {
 
 /* PRODUCTOS */
 #productos {
-    padding: 0 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
 /* CARDS STYLE */
 .card {
     width: 250px;
+    background-color: #343232;
     padding: 0.5rem;
     border-radius: 0.25rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
 }
 
 .card h2, .card-type {
@@ -86,8 +91,8 @@ nav {
     margin-bottom: 20px;
 }
 
-.card h2:not(.card-price) {
-    margin-left: 20%;
+.card h2 {
+    text-align: center;
 }
 
 .card-price, .card-type {
@@ -134,6 +139,8 @@ nav {
     bottom: -1rem;
     max-height: 0;
     padding: 0.5rem 0.5rem;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
     transition: max-height 2s ease, bottom 1s linear;
 }
 
@@ -157,6 +164,18 @@ nav {
     cursor: pointer;
 }
 
+.shopping-product-price {
+    border: none;
+    background-color: transparent;
+    text-align: center;
+    color: #fff;
+}
+
 .remove {
     padding: 0.25rem;
+}
+
+#shopping-final-price {
+    text-align: right;
+    padding-right: 1.7rem;
 }

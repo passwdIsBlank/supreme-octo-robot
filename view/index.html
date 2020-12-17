@@ -10,117 +10,71 @@
     <!-- CSS -->
     <link rel="stylesheet" href="css/index.css">
 </head>
-<body>
-<nav>
-    <img class="nav-brand" src="media/images/main/logo.webp" alt="" height="100px" width="180px">
-    <h1 class="nav-title">Tienda de Chocolates</h1>
-    <div class="nav-links">
-        <a href="">Productos</a>
-        <a href="">Nuevo Producto</a>
-        <a href="">Buscar</a>
+<body ng-app="app" ng-controller="tienda">
+    <nav>
+        <img class="nav-brand" src="media/images/main/logo.webp" alt="" height="100px" width="180px">
+        <h1 class="nav-title">Tienda de Chocolates</h1>
+        <div class="nav-links">
+            <a href="">Productos</a>
+            <a href="">Nuevo Producto</a>
+            <a href="">Buscar</a>
+        </div>
+    </nav>
+
+    <div id="productos" ng-hide="action !== 0">
+        <div class="card" ng-repeat="producto in productos">
+            <h1 class="card-type">{{producto.tipo}}</h1>
+            <div class="card-img" style="background-image: url({{producto.imagen}})">
+                <!-- IMG ON CSS -->
+            </div>
+            <h2 class="card-name">{{producto.nombre}}</h2>
+            <h2>{{producto.unidades}} disponibles</h2>
+            <h2 class="card-price">{{producto.precio}}€</h2>
+            <div class="card-shop">
+                <img class="img-button" src="media/images/index/add.png" alt="" height="30px" width="30px" ng-click="addToCart($index)">
+            </div>
+            <div class="actions">
+                <img class="img-button" src="media/images/index/delete.png" alt="" height="30px" width="30px">
+                <img class="img-button" src="media/images/index/edit.png" alt="" height="30px" width="30px">
+            </div>
+        </div>
     </div>
-</nav>
 
-<div id="productos">
-    <div class="card">
-        <h1 class="card-type">CHOCOLATE</h1>
-        <div class="card-img" style="background-image: url('https://www.hola.com/imagenes/estar-bien/20190617143878/tipos-chocolate-cuanto-engordan-cs/0-690-657/tipos-chocolate-t.jpg?filter=w600&filter=ds75')">
-            <!-- IMG ON CSS -->
-        </div>
-        <h2>NOMBRE</h2>
-        <h2>8 disponibles</h2>
-        <h2 class="card-price">10€</h2>
-        <div class="card-shop">
-            <img class="img-button" src="media/images/index/add.png" alt="" height="30px" width="30px">
-        </div>
-        <div class="actions">
-            <img class="img-button" src="media/images/index/delete.png" alt="" height="30px" width="30px">
-            <img class="img-button" src="media/images/index/edit.png" alt="" height="30px" width="30px">
-        </div>
+    <div id="shoppingCart">
+        <table>
+            <tbody>
+            <tr>
+                <th>Nombre</th>
+                <th>Imagen</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="producto in carrito">
+                <td>{{producto.nombre}}</td>
+                <td class="card-img" style="background-image: url({{producto.imagen}})">
+
+                </td>
+                <td>
+                    <img class="img-button" src="media/images/main/back.png" alt="" height="15px" width="15px" ng-hide="producto.cantidad == 0" ng-click="changeQuantity('substract', $index)">
+                    <span>{{producto.cantidad}}</span>
+                    <img class="img-button" src="media/images/main/next.png" alt="" height="15px" width="15px" ng-hide="producto.unidades == producto.cantidad" ng-click="changeQuantity('sum', $index)">
+                </td>
+                <td>
+                    <input class="shopping-product-price" type="text" value="0" ng-value="(producto.precio * producto.cantidad) + currency" readonly>
+                </td>
+                <td>
+                    <img class="remove img-button" src="media/images/main/remove-shopping-cart.png" alt="" height="30px" width="30px" ng-click="removeFromCart($index)">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div id="shopping-final-price" ng-model="precioFinal">Precio Final: {{precioFinal}}€</div>
     </div>
-</div>
-
-<div id="shoppingCart">
-    <table>
-        <tbody>
-        <tr>
-            <th>Nombre</th>
-            <th>Imagen</th>
-            <th>Cantidad</th>
-            <th>Precio</th>
-            <th></th>
-        </tr>
-        <tr>
-            <td>Chocolate</td>
-            <td class="card-img" style="background-image: url('https://www.hola.com/imagenes/estar-bien/20190617143878/tipos-chocolate-cuanto-engordan-cs/0-690-657/tipos-chocolate-t.jpg?filter=w600&filter=ds75')">
-
-            </td>
-            <td>
-                <img class="img-button" src="media/images/main/back.png" alt="" height="15px" width="15px">
-                <span>0</span>
-                <img class="img-button" src="media/images/main/next.png" alt="" height="15px" width="15px">
-            </td>
-            <td>0€</td>
-            <td>
-                <img class="remove img-button" src="media/images/main/remove-shopping-cart.png" alt="" height="30px" width="30px">
-            </td>
-        </tr>
-        <tr>
-            <td>Chocolate</td>
-            <td class="card-img" style="background-image: url('https://www.hola.com/imagenes/estar-bien/20190617143878/tipos-chocolate-cuanto-engordan-cs/0-690-657/tipos-chocolate-t.jpg?filter=w600&filter=ds75')">
-
-            </td>
-            <td>
-                <img class="img-button" src="media/images/main/back.png" alt="" height="15px" width="15px">
-                <span>0</span>
-                <img class="img-button" src="media/images/main/next.png" alt="" height="15px" width="15px">
-            </td>
-            <td>0€</td>
-            <td>
-                <img class="remove img-button" src="media/images/main/remove-shopping-cart.png" alt="" height="30px" width="30px">
-            </td>
-        </tr>
-        <tr>
-            <td>Chocolate</td>
-            <td class="card-img" style="background-image: url('https://www.hola.com/imagenes/estar-bien/20190617143878/tipos-chocolate-cuanto-engordan-cs/0-690-657/tipos-chocolate-t.jpg?filter=w600&filter=ds75')">
-
-            </td>
-            <td>
-                <img class="img-button" src="media/images/main/back.png" alt="" height="15px" width="15px">
-                <span>0</span>
-                <img class="img-button" src="media/images/main/next.png" alt="" height="15px" width="15px">
-            </td>
-            <td>0€</td>
-            <td>
-                <img class="remove img-button" src="media/images/main/remove-shopping-cart.png" alt="" height="30px" width="30px">
-            </td>
-        </tr>
-        <tr>
-            <td>Chocolate</td>
-            <td class="card-img" style="background-image: url('https://www.hola.com/imagenes/estar-bien/20190617143878/tipos-chocolate-cuanto-engordan-cs/0-690-657/tipos-chocolate-t.jpg?filter=w600&filter=ds75')">
-
-            </td>
-            <td>
-                <img class="img-button" src="media/images/main/back.png" alt="" height="15px" width="15px">
-                <span>0</span>
-                <img class="img-button" src="media/images/main/next.png" alt="" height="15px" width="15px">
-            </td>
-            <td>0€</td>
-            <td>
-                <img class="remove img-button" src="media/images/main/remove-shopping-cart.png" alt="" height="30px" width="30px">
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3"><b>TOTAL A PAGAR</b></td>
-            <td colspan="2"><b>0€</b></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
 
 
-<!-- JS -->
-<script src="js/angular.min.js"></script>
-<script src="js/script.js"></script>
+    <!-- JS -->
+    <script src="js/angular.min.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
