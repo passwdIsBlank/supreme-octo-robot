@@ -45,8 +45,38 @@
 		}
 		
 		private function showProperties() {
-			unset($this->conexion);
+			unset( $this->conexion );
 			return get_object_vars( $this );
 		}
 		
+		public function update() {
+			
+			$id = $this->getId();
+			$nombre = $this->getNombre();
+			$tipo = $this->getTipo();
+			$unidades = $this->getUnidades();
+			$precio = $this->getPrecio();
+			$imagen = $this->getImagen();
+			
+			
+			$sql = "CALL updateProducto( '$id', '$nombre', '$tipo', '$unidades', '$precio', '$imagen' )";
+			
+			$query = $this->conexion->query( $sql );
+			
+			if ( $query ) return true;
+			else return false;
+		}
+		
+		public function buy() {
+			
+			$id = $this->getId();
+			$unidades = $this->getUnidades();
+			
+			$sql = "CALL buyProducto( '$id', '$unidades' )";
+			
+			$query = $this->conexion->query( $sql );
+			
+			if ( $query ) return true;
+			else return false;
+		}
 	}

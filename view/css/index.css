@@ -17,7 +17,7 @@ nav, #shoppingCart {
     border-radius: 0.4rem;
 }
 
-.nav-links a, .card-shop, .actions .img-button, .remove {
+.nav-links a, .card-shop, .actions .img-button, .remove, .pay {
     background-color: #f6bf26;
     border-radius: 0.4rem;
 }
@@ -230,7 +230,15 @@ nav {
     padding: 0.25rem;
 }
 
+#shopping-final-price, .pay {
+    margin-top: 1rem;
+}
+
 #shopping-final-price {
     text-align: right;
     padding-right: 1.7rem;
+}
+
+.pay {
+    padding: 0.1rem 45%;
 }

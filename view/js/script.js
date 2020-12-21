@@ -92,8 +92,41 @@ myApp.controller("tienda", function ($scope, $http) {
         })
     }
 
-    $scope.buy = () => {
+    $scope.pay = () => {
+        let toDeduce = [];
 
+        $scope.carrito.forEach( producto => {
+            toDeduce.push( {
+                id: producto.id,
+                nombre: producto.nombre,
+                unidades: producto.unidades,
+                cantidad: producto.cantidad
+            } )
+        } )
+
+        $http({
+            url: '../controlador/buy.php',
+            method: 'POST',
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify( toDeduce )
+        })
+            .then(response => {
+                console.log( response.data )
+                if ( response.data.error ) {
+                    let message = `${response.data.answer}\r\r`;
+
+                    for ( productId in response.data.error ) {
+                        message += `- ${response.data.error[productId]}\r`;
+                    }
+
+                    alert( message );
+                } else {
+                    alert(response.data.answer);
+                    location.reload();
+                }
+
+            })
     }
 
     // STYLES
