@@ -9,7 +9,12 @@
 	
 	$success = $modeloProducto->delete();
 	
-	if ( $success ) $response['answer'] = 'Deletion was successful';
+	if ( $success ) {
+		$imagePath = $modeloProducto->getImagen();
+		
+		if ( !is_int( strpos( $imagePath, 'http' ) ) ) unlink( "../view/{$imagePath}" );
+		$response['answer'] = 'Deletion was successful';
+	}
 	else $response['answer'] = 'Deletion was unsuccessful';
 	
 	echo json_encode( $response );

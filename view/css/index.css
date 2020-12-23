@@ -17,12 +17,12 @@ nav, #shoppingCart {
     border-radius: 0.4rem;
 }
 
-.nav-links a, .card-shop, .actions .img-button, .remove, .pay {
+.nav-links a, .card-shop, .actions .img-button, .remove, .pay, .form-group > input[type="submit"] {
     background-color: #f6bf26;
     border-radius: 0.4rem;
 }
 
-.nav-links a ,.card-img, .card-shop, .actions .img-button, .remove {
+.nav-links a ,.card-img, .card-shop, .actions .img-button, .remove, .form-group > input[type="submit"] {
     box-shadow: -1px 2px 8px black;
 }
 
@@ -169,6 +169,16 @@ nav {
     margin-top: 1rem;
     width: 350px;
     height: 250px;
+}
+
+.form-group:last-of-type {
+    width: auto;
+}
+
+.form-group:last-of-type > input[type="submit"] {
+    border: none;
+    padding: 0.5rem 3rem;
+    color: inherit;
 }
 
 /* SHOPPING CART STYLES */
